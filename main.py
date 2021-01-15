@@ -22,13 +22,14 @@ class MyWidget(QMainWindow):
     def draw_circle(self, qp):
         if self.do_paint:
             self.do_paint = False
-            qp.setBrush(QColor("yellow"))
+            color = QColor(randrange(256), randrange(256), randrange(256))
             size = randrange(5, 100)
             x = randrange(0, self.width() - size)
             y = randrange(0, self.height() - size)
-            self.circles.append((x, y, size, size))
-            for circle in self.circles:
-                qp.drawEllipse(*circle)
+            self.circles.append((x, y, size, color))
+            for x, y, size, color in self.circles:
+                qp.setBrush(color)
+                qp.drawEllipse(x, y, size, size)
 
     def run(self):
         self.do_paint = True
